@@ -1,9 +1,11 @@
 import React from "react";
 import { useModalCloser } from "../hooks/useModalCloser";
+import { useSelector } from "react-redux";
+import { toTitleCase } from "../utils/toTitleCase";
 
 export default function UsersList() {
+    const users = useSelector((state) => state.users);
     const closeModal = useModalCloser();
-    const array = Array(10).fill();
 
     return (
         <div className="modal-content md-content">
@@ -30,9 +32,9 @@ export default function UsersList() {
                                     <div className="input-group-text transparent-bg border-left-0" role="button">
                                         <svg className="hw-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth="2"
                                                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                                             ></path>
                                         </svg>
@@ -44,24 +46,21 @@ export default function UsersList() {
 
                     <div className="col-12">
                         <ul className="list-group list-group-flush hide-scrollbar" style={{ height: 370 }}>
-                            {array.map((e) => (
-                                <li className="list-group-item">
+                            {users.map((user) => (
+                                <li className="list-group-item" key={user.id}>
                                     <div className="media">
-                                        <div className="avatar avatar-online mr-2">
-                                            <img
-                                                src="https://pyxis.nymag.com/v1/imgs/70a/8bf/035e2a45436f3c1ee8bb609b2beabfd93c-9-brad-pitt.rsquare.w700.jpg"
-                                                alt=""
-                                            />
+                                        <div className={`avatar avatar-${user.status} mr-2`}>
+                                            <img src={user.image} alt="user-icon" />
                                         </div>
 
                                         <div className="media-body">
                                             <h6 className="text-truncate">
                                                 <a href="#" className="text-reset">
-                                                    Catherine Richardson
+                                                    {user.name}
                                                 </a>
                                             </h6>
 
-                                            <p className="text-muted mb-0">Online</p>
+                                            <p className="text-muted mb-0">{toTitleCase(user.status)}</p>
                                         </div>
                                     </div>
                                 </li>
