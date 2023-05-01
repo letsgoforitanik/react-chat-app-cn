@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import { addMessage } from "../store/slice";
 import { toTitleCase } from "../utils/toTitleCase";
 import { groupChatsByTimestamp } from "../utils/groupChatsByTimestamp";
@@ -23,7 +24,7 @@ export default function Chats() {
         ref && (ref.scrollTop = ref.scrollHeight);
     }
 
-    function handleClick() {
+    function addNewMessage() {
         const messageText = txtMessage.current.innerText;
 
         if (!messageText) return;
@@ -38,6 +39,8 @@ export default function Chats() {
         dispatch(addMessage({ userId, message }));
 
         txtMessage.current.innerText = "";
+
+        toast.success("Message sent successfully");
     }
 
     function toggleSearchBar() {
@@ -158,7 +161,7 @@ export default function Chats() {
                     <div
                         className="btn btn-primary btn-icon send-icon rounded-circle text-light mb-1"
                         role="button"
-                        onClick={handleClick}
+                        onClick={addNewMessage}
                     >
                         <svg className="hw-24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path

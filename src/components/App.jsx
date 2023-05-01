@@ -1,6 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { Route, BrowserRouter, Routes } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 import { store } from "../store";
 import { ModalProvider } from "../providers/ModalProvider";
 import { MainWrapper } from "../components";
@@ -19,6 +20,7 @@ export default function App() {
                     </Routes>
                 </ModalProvider>
             </Provider>
+            <Toaster />
         </BrowserRouter>
     );
 }
