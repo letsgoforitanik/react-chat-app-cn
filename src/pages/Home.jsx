@@ -3,6 +3,9 @@ import { useModal } from "../hooks/useModal";
 import { UsersList } from "../components";
 import myImage from "../assets/images/anik.jpg";
 
+// The initial home page. It does nothing special.
+// To create new conversation, we can click
+//  "Start a conversation" button
 export default function Home() {
     const { openModal } = useModal(<UsersList />);
     const handleClick = () => openModal();

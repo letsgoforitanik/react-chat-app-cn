@@ -7,6 +7,8 @@ import { ModalProvider } from "../providers/ModalProvider";
 import { MainWrapper } from "../components";
 import { Chats, Home } from "../pages";
 
+// ModalProvider gives components access to using modal
+// from anywhere in the react dom hierarchy.
 export default function App() {
     return (
         <BrowserRouter>

@@ -9,6 +9,9 @@ import myImage from "../assets/images/anik.jpg";
 import { getTime } from "../utils/getTime";
 import { useToggle } from "../hooks/useToggle";
 
+// This component shows all the conversations with a particular user
+// It receives the user id from url, for which we have used useParams() hook.
+// We can also add new messages to the conversation from this component.
 export default function Chats() {
     const dispatch = useDispatch();
     const [showBar, toggleShowBar] = useToggle(false);

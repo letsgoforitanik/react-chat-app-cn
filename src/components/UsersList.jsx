@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { useModalCloser } from "../hooks/useModalCloser";
 import { toTitleCase } from "../utils/toTitleCase";
 
+// This component will be show in modal
+// This is useful for selecting users and creating new conversations
 export default function UsersList() {
     const users = useSelector((state) => state.users);
     const [searchTerm, setSearchTerm] = useState("");

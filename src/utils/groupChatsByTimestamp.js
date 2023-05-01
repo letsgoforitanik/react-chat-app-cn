@@ -1,5 +1,6 @@
 import { getDay } from "./getTime";
 
+// Groups messages by their creation date
 export function groupChatsByTimestamp(chats) {
     const groups = {};
 

@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { getDay } from "../utils/getTime";
 import myImage from "../assets/images/anik.jpg";
 
+// Sidebar component which is shown on the left of the screen
 export default function Sidebar() {
     const [searchTerm, setSearchTerm] = useState("");
     const { userId } = useParams();
