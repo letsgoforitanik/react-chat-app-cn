@@ -1,6 +1,6 @@
 # React chat application for Coding Ninja
 
-This is a sample chat application. Initially, the users and chats are loaded from data.sj file and stored into `localStorage`.
+This is a sample chat application. Initially, the users and chats are loaded from data.js file and stored into `localStorage`. Subsequently, data are always fetched from `localStorage` whenever page refreshes and loaded. This project features a Sidebar component, which shows all the previous conversations with different users. We can search for particular conversation by user name. Upon clicking on an user item, the conversations with that user are loaded on the right. On the top, when the search icon is clicked, a search bar opens, where we can search for a conversation. On the Sidebar when we click on user image icon, the home page opens. When we click on 'Start a Conversation' button, a popup will open with all the users listed. We can click on any user to open new chat, or continue existing conversation.
 
 ## Available Scripts
 
