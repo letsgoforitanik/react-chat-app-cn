@@ -10,8 +10,6 @@ export default function Sidebar() {
     const users = useSelector((state) => state.users).filter((user) => user.chats.length > 0 || user.id == userId);
     const searchedUsers = searchTerm ? users.filter((user) => user.name.toLowerCase().includes(searchTerm.toLowerCase())) : users;
 
-    console.log("came here");
-
     return (
         <aside className="sidebar">
             <div className="tab-content">
