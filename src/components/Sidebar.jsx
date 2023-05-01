@@ -1,13 +1,20 @@
-import React from "react";
-import { ContactsList } from "../components";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { getDay } from "../utils/getTime";
 
 export default function Sidebar() {
+    const [searchTerm, setSearchTerm] = useState("");
+    const users = useSelector((state) => state.users);
+    const searchedUsers = searchTerm ? users.filter((user) => user.name.toLowerCase().includes(searchTerm.toLowerCase())) : users;
+    const { userId } = useParams();
+
     return (
         <aside className="sidebar">
             <div className="tab-content">
                 <div className="tab-pane active">
                     <div className="d-flex flex-column h-100">
-                        <div className="hide-scrollbar h-100">
+                        <div className="conv-container">
                             <div className="sidebar-header sticky-top p-2">
                                 <div className="d-flex justify-content-between align-items-center">
                                     <h5 className="font-weight-semibold mb-2 mt-2">CONVERSATION</h5>
@@ -20,6 +27,8 @@ export default function Sidebar() {
                                                 type="text"
                                                 className="form-control search border-right-0 transparent-bg pr-0"
                                                 placeholder="Search users"
+                                                value={searchTerm}
+                                                onChange={(e) => setSearchTerm(e.target.value)}
                                             />
                                             <div className="input-group-append">
                                                 <div className="input-group-text transparent-bg border-left-0" role="button">
@@ -43,7 +52,30 @@ export default function Sidebar() {
                                 </div>
                             </div>
 
-                            <ContactsList />
+                            <ul className="hide-scrollbar contacts-list" style={{ flexGrow: 1, marginBottom: 0 }}>
+                                {searchedUsers.map((user) => (
+                                    <li
+                                        key={user.id}
+                                        className={"contacts-item friends" + (user.id == userId ? " active" : "")}
+                                        style={{ height: "auto" }}
+                                    >
+                                        <Link className="contacts-link" to={`/users/${user.id}/conversations`}>
+                                            <div className={`avatar avatar-${user.status}`}>
+                                                <img src={user.image} alt="user-icon" />
+                                            </div>
+                                            <div className="contacts-content">
+                                                <div className="contacts-info">
+                                                    <h6 className="chat-name text-truncate">{user.name}</h6>
+                                                    <div className="chat-time">{getDay(user.timestamp)}</div>
+                                                </div>
+                                                <div className="contacts-texts">
+                                                    <p className="text-truncate">{user.chats[user.chats.length - 1].text}</p>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     </div>
                 </div>

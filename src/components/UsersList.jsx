@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { useModalCloser } from "../hooks/useModalCloser";
 import { useSelector } from "react-redux";
 import { toTitleCase } from "../utils/toTitleCase";
+import { useNavigate } from "react-router-dom";
 
 export default function UsersList() {
     const users = useSelector((state) => state.users);
+    const [searchTerm, setSearchTerm] = useState("");
     const closeModal = useModalCloser();
+    const navigateTo = useNavigate();
+
+    function handleItemClick(userId) {
+        navigateTo(`/users/${userId}/conversations`);
+        closeModal();
+    }
+
+    const searchedUsers = searchTerm ? users.filter((user) => user.name.toLowerCase().includes(searchTerm.toLowerCase())) : users;
 
     return (
         <div className="modal-content md-content">
@@ -13,7 +23,7 @@ export default function UsersList() {
                 <h5 className="modal-title" id="startConversationLabel">
                     Start Conversation
                 </h5>
-                <button type="button" className="close" onClick={() => closeModal()}>
+                <button type="button" className="close" onClick={closeModal}>
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
@@ -27,6 +37,8 @@ export default function UsersList() {
                                     type="text"
                                     className="form-control form-control-md search border-right-0 transparent-bg pr-0"
                                     placeholder="Search"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
                                 />
                                 <div className="input-group-append">
                                     <div className="input-group-text transparent-bg border-left-0" role="button">
@@ -46,8 +58,8 @@ export default function UsersList() {
 
                     <div className="col-12">
                         <ul className="list-group list-group-flush hide-scrollbar" style={{ height: 370 }}>
-                            {users.map((user) => (
-                                <li className="list-group-item" key={user.id}>
+                            {searchedUsers.map((user) => (
+                                <li className="list-group-item" key={user.id} onClick={() => handleItemClick(user.id)}>
                                     <div className="media">
                                         <div className={`avatar avatar-${user.status} mr-2`}>
                                             <img src={user.image} alt="user-icon" />
