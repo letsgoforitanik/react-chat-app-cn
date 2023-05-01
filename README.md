@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# React chat application for Coding Ninja
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a sample chat application. Initially, the users and chats are loaded from data.sj file and stored into `localStorage`.
 
 ## Available Scripts
 
