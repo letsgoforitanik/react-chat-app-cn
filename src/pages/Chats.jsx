@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { addMessage, getUsers } from "../store/slice";
+import { addMessage } from "../store/slice";
 import { toTitleCase } from "../utils/toTitleCase";
 import { groupChatsByTimestamp } from "../utils/groupChatsByTimestamp";
 import myImage from "../assets/images/anik.jpg";
@@ -16,7 +16,6 @@ export default function Chats() {
     const txtMessage = useRef();
     const chatContainer = useRef();
     const user = useSelector((state) => state.users.find((u) => u.id == userId));
-    useEffect(() => dispatch(getUsers()) && undefined, []);
     useEffect(() => scrollToBottom() && undefined, [user]);
 
     function scrollToBottom() {
@@ -48,9 +47,9 @@ export default function Chats() {
 
     if (!user) return null;
 
-    const userChats = searchText ? user.chats.filter((c) => c.text.toLowerCase().includes(searchText.toLowerCase())) : user.chats;
-
     const { image, name, status, chats } = user;
+
+    const userChats = searchText ? chats.filter((c) => c.text.toLowerCase().includes(searchText.toLowerCase())) : chats;
 
     const chatGroups = groupChatsByTimestamp(userChats);
 
@@ -91,7 +90,7 @@ export default function Chats() {
                             <input
                                 type="text"
                                 className="form-control form-control-md border-right-0 transparent-bg pr-0"
-                                placeholder="Search Conversation"
+                                placeholder="Search conversation"
                                 value={searchText}
                                 onChange={(e) => setSearchText(e.target.value)}
                             />
@@ -118,7 +117,7 @@ export default function Chats() {
                                 <div className="message-divider sticky-top pb-2" data-label={grpName}>
                                     &nbsp;
                                 </div>
-                                {userChats.map((chat) => (
+                                {chats.map((chat) => (
                                     <div className={"message" + (chat.self ? " self" : "")} key={chat.id}>
                                         <div className="message-wrapper">
                                             <div className="message-content">

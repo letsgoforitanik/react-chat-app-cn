@@ -31,3 +31,8 @@
 .show-bar {
     height: 68.59px;
 }
+
+.my-image {
+    height: 32px;
+    border-radius: 50%;
+}

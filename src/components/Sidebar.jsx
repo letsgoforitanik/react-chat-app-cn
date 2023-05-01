@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getDay } from "../utils/getTime";
+import myImage from "../assets/images/anik.jpg";
 
 export default function Sidebar() {
     const [searchTerm, setSearchTerm] = useState("");
-    const users = useSelector((state) => state.users);
-    const searchedUsers = searchTerm ? users.filter((user) => user.name.toLowerCase().includes(searchTerm.toLowerCase())) : users;
     const { userId } = useParams();
+    const users = useSelector((state) => state.users).filter((user) => user.chats.length > 0 || user.id == userId);
+    const searchedUsers = searchTerm ? users.filter((user) => user.name.toLowerCase().includes(searchTerm.toLowerCase())) : users;
+
+    console.log("came here");
 
     return (
         <aside className="sidebar">
@@ -17,7 +20,10 @@ export default function Sidebar() {
                         <div className="conv-container">
                             <div className="sidebar-header sticky-top p-2">
                                 <div className="d-flex justify-content-between align-items-center">
-                                    <h5 className="font-weight-semibold mb-2 mt-2">CONVERSATION</h5>
+                                    <h5 className="font-weight-semibold mb-2 mt-2">CONVERSATIONS</h5>
+                                    <Link to="/">
+                                        <img src={myImage} alt="user-icon" className="my-image" />
+                                    </Link>
                                 </div>
 
                                 <div className="sidebar-sub-header">
@@ -26,7 +32,7 @@ export default function Sidebar() {
                                             <input
                                                 type="text"
                                                 className="form-control search border-right-0 transparent-bg pr-0"
-                                                placeholder="Search users"
+                                                placeholder="Search user"
                                                 value={searchTerm}
                                                 onChange={(e) => setSearchTerm(e.target.value)}
                                             />
@@ -69,7 +75,9 @@ export default function Sidebar() {
                                                     <div className="chat-time">{getDay(user.timestamp)}</div>
                                                 </div>
                                                 <div className="contacts-texts">
-                                                    <p className="text-truncate">{user.chats[user.chats.length - 1].text}</p>
+                                                    <p className="text-truncate">
+                                                        {user.chats.length > 0 ? user.chats[user.chats.length - 1].text : ""}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </Link>
