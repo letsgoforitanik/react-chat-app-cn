@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useModalCloser } from "../hooks/useModalCloser";
-import { useSelector } from "react-redux";
-import { toTitleCase } from "../utils/toTitleCase";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useModalCloser } from "../hooks/useModalCloser";
+import { toTitleCase } from "../utils/toTitleCase";
 
 export default function UsersList() {
     const users = useSelector((state) => state.users);
@@ -14,9 +14,7 @@ export default function UsersList() {
     return (
         <div className="modal-content md-content">
             <div className="modal-header">
-                <h5 className="modal-title" id="startConversationLabel">
-                    Start Conversation
-                </h5>
+                <h5 className="modal-title">Start Conversation</h5>
                 <button type="button" className="close" onClick={closeModal}>
                     <span aria-hidden="true">×</span>
                 </button>
