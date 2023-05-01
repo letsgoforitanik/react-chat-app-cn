@@ -7,7 +7,7 @@ import "./assets/css/app.min.css";
 import "./assets/css/skins/dark-skin.min.css";
 import "./assets/css/style.css";
 
-//store.subscribe(() => syncLocalStorage(store));
+store.subscribe(() => syncLocalStorage(store));
 const root = document.getElementById("root");
 const reactRoot = ReactDOM.createRoot(root);
 reactRoot.render(<App />);

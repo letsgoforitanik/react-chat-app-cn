@@ -2,18 +2,12 @@ import React, { useState } from "react";
 import { useModalCloser } from "../hooks/useModalCloser";
 import { useSelector } from "react-redux";
 import { toTitleCase } from "../utils/toTitleCase";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function UsersList() {
     const users = useSelector((state) => state.users);
     const [searchTerm, setSearchTerm] = useState("");
     const closeModal = useModalCloser();
-    const navigateTo = useNavigate();
-
-    function handleItemClick(userId) {
-        navigateTo(`/users/${userId}/conversations`);
-        closeModal();
-    }
 
     const searchedUsers = searchTerm ? users.filter((user) => user.name.toLowerCase().includes(searchTerm.toLowerCase())) : users;
 
@@ -59,7 +53,7 @@ export default function UsersList() {
                     <div className="col-12">
                         <ul className="list-group list-group-flush hide-scrollbar" style={{ height: 370 }}>
                             {searchedUsers.map((user) => (
-                                <li className="list-group-item" key={user.id} onClick={() => handleItemClick(user.id)}>
+                                <li className="list-group-item" key={user.id} onClick={closeModal}>
                                     <div className="media">
                                         <div className={`avatar avatar-${user.status} mr-2`}>
                                             <img src={user.image} alt="user-icon" />
@@ -67,9 +61,9 @@ export default function UsersList() {
 
                                         <div className="media-body">
                                             <h6 className="text-truncate">
-                                                <a href="#" className="text-reset">
+                                                <Link to={`/users/${user.id}/conversations`} className="text-reset">
                                                     {user.name}
-                                                </a>
+                                                </Link>
                                             </h6>
 
                                             <p className="text-muted mb-0">{toTitleCase(user.status)}</p>
